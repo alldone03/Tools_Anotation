@@ -4,12 +4,12 @@ import numpy as np
 import os
 
 # Load the YOLOv5 model
-model = torch.hub.load("C:/Users/Aldan Prayogi/Desktop/pythonImagedetection/yolov5", "custom", "C:/Users/Aldan Prayogi/Desktop/pythonImagedetection/exp37/exp37/weights/best.pt", source='local')
+model = torch.hub.load("ultralytics/yolov8", "custom", "C:/Users/Kanaaii/Documents/ITS/4Semester/PBL/Train/runs/detect/train6/weights/best.pt")
 model.conf = 0.5
 
 # Directory containing the images
-image_folder = 'C:/Users/Aldan Prayogi/Desktop/pythonImagedetection/dataset'
-output_folder = './newdataset/saveImg'
+image_folder = 'C:/Users/Kanaaii/Documents/ITS/4Semester/PBL/Train/train/images'
+output_folder = 'D:/yoloaldan/Anotator/Tools_Anotation/output'
 
 # Create the output directory if it doesn't exist
 if not os.path.exists(output_folder):
@@ -49,7 +49,7 @@ for image_file in image_files:
         
         if cv2.waitKey(25) & 0xFF == ord('q'):
             break
-        if numberImage >= 7000:
+        if numberImage >= 10:
             break
 
 cv2.destroyAllWindows()
