@@ -3,9 +3,9 @@ import shutil
 from sklearn.model_selection import train_test_split
 
 # Path to your dataset images and labels
-img_dir = "C:/Users/Aldan Prayogi/Desktop/pythonImagedetection/AnotatorNie"
+img_dir = 'D:/Kuliah/Semester_5/DatasetPPEPandu/converted_images'
 label_dir = img_dir
-save_to_folder = "dataset4"
+save_to_folder = "datasetPPEPandu"
 
 images = [f for f in os.listdir(img_dir) if f.endswith('.jpg')]
 labels = [f for f in os.listdir(label_dir) if f.endswith('.txt')]
@@ -37,21 +37,43 @@ def copy_files(file_list, src_dir, dest_dir):
         shutil.copy(os.path.join(src_dir, file), os.path.join(dest_dir, file))
 
 
-# Create destination directories if they don't exist
-os.makedirs(save_to_folder+'/train/images', exist_ok=True)
-os.makedirs(save_to_folder+'/val/images', exist_ok=True)
-os.makedirs(save_to_folder+'/test/images', exist_ok=True)
-os.makedirs(save_to_folder+'/train/labels', exist_ok=True)
-os.makedirs(save_to_folder+'/val/labels', exist_ok=True)
-os.makedirs(save_to_folder+'/test/labels', exist_ok=True)
+# # Create destination directories if they don't exist
+# os.makedirs(save_to_folder+'/train/images', exist_ok=True)
+# os.makedirs(save_to_folder+'/val/images', exist_ok=True)
+# os.makedirs(save_to_folder+'/test/images', exist_ok=True)
+# os.makedirs(save_to_folder+'/train/labels', exist_ok=True)
+# os.makedirs(save_to_folder+'/val/labels', exist_ok=True)
+# os.makedirs(save_to_folder+'/test/labels', exist_ok=True)
 
-# Move the files
-# copy_files(train_imgs, img_dir, 
-copy_files(train_imgs, img_dir, save_to_folder+'/train/images')
-copy_files(val_imgs, img_dir, save_to_folder+'/val/images')
-copy_files(test_imgs, img_dir, save_to_folder+'/test/images')
-copy_files(train_lbls, label_dir, save_to_folder+'/train/labels')
-copy_files(val_lbls, label_dir, save_to_folder+'/val/labels')
-copy_files(test_lbls, label_dir, save_to_folder+'/test/labels')
+# # Move the files
+# # copy_files(train_imgs, img_dir, 
+# copy_files(train_imgs, img_dir, save_to_folder+'/train/images')
+# copy_files(val_imgs, img_dir, save_to_folder+'/val/images')
+# copy_files(test_imgs, img_dir, save_to_folder+'/test/images')
+# copy_files(train_lbls, label_dir, save_to_folder+'/train/labels')
+# copy_files(val_lbls, label_dir, save_to_folder+'/val/labels')
+# copy_files(test_lbls, label_dir, save_to_folder+'/test/labels')
 
 print("Dataset has been split and moved to respective directories.")
+
+import yaml
+# Read the class names from labels.txt
+with open(img_dir+'/labels.txt', 'r') as file:
+    class_names = [line.strip() for line in file]
+
+print(class_names)
+# Create the YAML content
+data = {
+    'path': './'+save_to_folder,
+    'train': 'train/images',
+    'val': 'val/images',
+    'test': 'test/images',
+    'nc': len(class_names),
+    'names': class_names
+}
+
+# Write the content to a YAML file
+with open(save_to_folder+'/dataset.yaml', 'w') as file:
+    yaml.dump(data, file, default_flow_style=False)
+
+print("YAML file created successfully.")

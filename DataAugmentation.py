@@ -49,7 +49,8 @@ def rotate_bbox(bbox, image, angle):
         y_center_new = (min(y_coords) + max(y_coords)) / 2 / h
         width_new = (max(x_coords) - min(x_coords)) / w
         height_new = (max(y_coords) - min(y_coords)) / h
-
+        
+        
         new_bbox.append([class_id, x_center_new, y_center_new, width_new, height_new])
     return new_bbox
 
@@ -60,6 +61,7 @@ def translate_bbox(bbox, tx, ty, image):
     new_bbox = []
     for box in bbox:
         class_id, x_center, y_center, width, height = box
+       
         new_bbox.append([class_id, x_center + tx, y_center + ty, width, height])
     return new_bbox
 
@@ -67,6 +69,7 @@ def scale_bbox(bbox, fx, fy):
     new_bbox = []
     for box in bbox:
         class_id, x_center, y_center, width, height = box
+        
         new_bbox.append([class_id, x_center, y_center, width * fx, height * fy])
     return new_bbox
 
@@ -75,6 +78,7 @@ def flip_bbox(bbox, image, flip_code):
     new_bbox = []
     for box in bbox:
         class_id, x_center, y_center, width, height = box
+        
         if flip_code == 1:  # Horizontal flip
             new_bbox.append([class_id, 1 - x_center, y_center, width, height])
         elif flip_code == 0:  # Vertical flip
@@ -110,6 +114,14 @@ def save_augmented_image_and_labels(image, bbox, image_path, prefix):
     with open(os.path.join(directory, new_label_filename), 'w') as f:
         for box in bbox:
             class_id, x_center, y_center, width, height = box
+            if x_center > 1:
+                x_center = 1
+            if y_center >1 :
+                y_center=1
+            if width >1 :
+                width=1
+            if height >1 :
+                height=1
             f.write(f"{class_id} {x_center:.6f} {y_center:.6f} {width:.6f} {height:.6f}\n")
 
 def preview_and_confirm(image, bbox):
@@ -166,6 +178,6 @@ def process_images_from_folder(image_folder, label_folder):
             print(f"Processed {filename} images.")
 
 # Example usage
-image_folder = 'C:/Users/Aldan Prayogi/Desktop/pythonImagedetection/AnotatorNie'
+image_folder = 'D:/Kuliah/Semester_5/DatasetPPEPandu/converted_images'
 label_folder = image_folder
 process_images_from_folder(image_folder, label_folder)

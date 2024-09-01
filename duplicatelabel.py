@@ -31,5 +31,6 @@ def find_duplicate_data(file_path):
 # Path ke folder yang berisi file teks yang akan diperiksa
 folder_path = 'C:/Users/Aldan Prayogi/Desktop/pythonImagedetection/labeled/Images'
 
+
 find_duplicate_data_in_folder(folder_path)
 print("Proses selesai.")

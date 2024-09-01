@@ -1,7 +1,7 @@
 import os
 import cv2
 import subprocess
-image_folder = 'C:/Users/Aldan Prayogi/Desktop/pythonImagedetection/AnotatorNie'
+image_folder = 'D:/Kuliah/Semester_5/DatasetPPEPandu/converted_images'
             
 def process_images_from_folder(image_folder, label_folder):
     nomer = 0
