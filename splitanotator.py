@@ -2,7 +2,7 @@ import os
 import shutil
 
 # Path ke folder dataset dan file label.txt
-dataset_folder = 'C:/Users/Aldan Prayogi/Desktop/pythonImagedetection/Tools_Yolo/newdataset/saveImg'
+dataset_folder = 'C:/Users/Aldan/Desktop/sawitmini/dataset/canpuranbrondol'
 # label_file = 'C:/Users/Aldan Prayogi/Desktop/pythonImagedetection/labeled/labels.txt'
 
 # Jumlah anotator

@@ -178,6 +178,6 @@ def process_images_from_folder(image_folder, label_folder):
             print(f"Processed {filename} images.")
 
 # Example usage
-image_folder = 'D:/Kuliah/Semester_5/DatasetPPEPandu/converted_images'
+image_folder = 'C:/Users/Aldan/Desktop/sawitmini/dataset/datasedikit'
 label_folder = image_folder
 process_images_from_folder(image_folder, label_folder)
