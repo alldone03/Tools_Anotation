@@ -133,6 +133,27 @@ def preview_and_confirm(image, bbox):
         return True
     return False
 
+def apply_sunlight_filter(image, strength=0.7):
+    h, w = image.shape[:2]
+    overlay = image.copy()
+    sun_center = (int(w * 0.8), int(h * 0.2))  # arah sinar dari pojok kanan atas
+
+    for y in range(h):
+        for x in range(w):
+            distance = np.sqrt((x - sun_center[0])**2 + (y - sun_center[1])**2)
+            brightness = max(0, 1 - distance / (w / 1.2)) * strength
+            overlay[y, x] = np.clip(overlay[y, x] + brightness * 255, 0, 255)
+
+    return overlay.astype(np.uint8)
+
+def change_brightness(image, factor):
+    hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+    hsv = np.array(hsv, dtype=np.float32)
+    hsv[..., 2] = hsv[..., 2] * factor
+    hsv[..., 2] = np.clip(hsv[..., 2], 0, 255)
+    bright_img = cv2.cvtColor(hsv.astype(np.uint8), cv2.COLOR_HSV2BGR)
+    return bright_img
+
 def process_images_from_folder(image_folder, label_folder):
     nomer = 0
     for filename in os.listdir(image_folder):
@@ -170,14 +191,26 @@ def process_images_from_folder(image_folder, label_folder):
             new_bbox_scaled = scale_bbox(bbox, 1.5, 1.5)
             save_augmented_image_and_labels(scaled, new_bbox_scaled, image_path, 'scaled')
 
-            flipped = flip_image(image, 1)
-            new_bbox_flipped = flip_bbox(bbox, image, 1)
-            save_augmented_image_and_labels(flipped, new_bbox_flipped, image_path, 'flipped')
+            # flipped = flip_image(image, 1)
+            # new_bbox_flipped = flip_bbox(bbox, image, 1)
+            # save_augmented_image_and_labels(flipped, new_bbox_flipped, image_path, 'flipped')
+            
+            # Sunlight Filter
+            sunlight = apply_sunlight_filter(image)
+            save_augmented_image_and_labels(sunlight, bbox, image_path, 'sunlight')
+
+            # Lebih terang
+            bright = change_brightness(image, 1.5)
+            save_augmented_image_and_labels(bright, bbox, image_path, 'bright')
+
+            # Lebih gelap
+            dark = change_brightness(image, 0.5)
+            save_augmented_image_and_labels(dark, bbox, image_path, 'dark')
 
             nomer += 1
             print(f"Processed {filename} images.")
 
 # Example usage
-image_folder = 'C:/Users/Aldan/Desktop/sawitmini/dataset/datasedikit'
+image_folder = 'C:/Users/Aldan/Desktop/IMPROTOYOTA/CAMERA 9 ZENIX.v1i.yolov8 - Copy/dataset/images'
 label_folder = image_folder
 process_images_from_folder(image_folder, label_folder)
