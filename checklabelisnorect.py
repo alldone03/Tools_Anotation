@@ -2,12 +2,7 @@ import os
 
 # Daftar folder kamera
 camera_folders = [
-    "C:/Users/Aldan/Desktop/IMPROTOYOTA/CAMERA 9 ZENIX.v1i.yolov8",
-    "C:/Users/Aldan/Desktop/IMPROTOYOTA/CAMERA 8 FORTUNER.v1i.yolov8",
-    "C:/Users/Aldan/Desktop/IMPROTOYOTA/CAMERA 8 INNOVA.v1i.yolov8",
-    "C:/Users/Aldan/Desktop/IMPROTOYOTA/CAMERA 8 ZENIX.v1i.yolov8",
-    "C:/Users/Aldan/Desktop/IMPROTOYOTA/CAMERA 9 FORTUNER.v1i.yolov8",
-    "C:/Users/Aldan/Desktop/IMPROTOYOTA/CAMERA 9 INNOVA.v1i.yolov8"
+    "C:/Users/Aldan/Desktop/IMPROTOYOTA/CAMERA 5 INNOVA.v4i.yolov8"
 ]
 
 # Simpan error

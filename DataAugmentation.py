@@ -79,11 +79,11 @@ def flip_bbox(bbox, image, flip_code):
     for box in bbox:
         class_id, x_center, y_center, width, height = box
         
-        if flip_code == 1:  # Horizontal flip
+        if flip_code == 1:  
             new_bbox.append([class_id, 1 - x_center, y_center, width, height])
-        elif flip_code == 0:  # Vertical flip
+        elif flip_code == 0:  
             new_bbox.append([class_id, x_center, 1 - y_center, width, height])
-        elif flip_code == -1:  # Both
+        elif flip_code == -1:  
             new_bbox.append([class_id, 1 - x_center, 1 - y_center, width, height])
     return new_bbox
 
@@ -136,7 +136,7 @@ def preview_and_confirm(image, bbox):
 def apply_sunlight_filter(image, strength=0.7):
     h, w = image.shape[:2]
     overlay = image.copy()
-    sun_center = (int(w * 0.8), int(h * 0.2))  # arah sinar dari pojok kanan atas
+    sun_center = (int(w * 0.8), int(h * 0.2))  
 
     for y in range(h):
         for x in range(w):
@@ -156,61 +156,70 @@ def change_brightness(image, factor):
 
 def process_images_from_folder(image_folder, label_folder):
     nomer = 0
-    for filename in os.listdir(image_folder):
-        if filename.endswith(".jpg") or filename.endswith(".png"):
-            image_path = os.path.join(image_folder, filename)
-            label_path = os.path.join(label_folder, os.path.splitext(filename)[0] + ".txt")
 
-            # Check if the label file exists
-            if not os.path.exists(label_path):
-                print(f"Label file does not exist for image {filename}. Skipping augmentation.")
-                continue
+    # Hitung jumlah file gambar yang valid
+    image_files = [f for f in os.listdir(image_folder) if f.endswith((".jpg", ".png"))]
+    total_files = len(image_files)
 
-            image = cv2.imread(image_path)
-            if image is None:
-                print(f"Failed to read image {filename}. Skipping.")
-                continue
+    for filename in image_files:
+        image_path = os.path.join(image_folder, filename)
+        label_path = os.path.join(label_folder, os.path.splitext(filename)[0] + ".txt")
 
-            # Read bounding box from label file
-            bbox = []
-            with open(label_path, 'r') as f:
-                for line in f:
-                    class_id, x_center, y_center, width, height = map(float, line.split())
-                    bbox.append([class_id, x_center, y_center, width, height])
+        if not os.path.exists(label_path):
+            print(f"Label file does not exist for image {filename}. Skipping augmentation.")
+            continue
 
-            # Augment image and labels
-            rotated = rotate_image(image, 3)
-            new_bbox_rotated = rotate_bbox(bbox, image, 3)
-            save_augmented_image_and_labels(rotated, new_bbox_rotated, image_path, 'rotated')
+        image = cv2.imread(image_path)
+        if image is None:
+            print(f"Failed to read image {filename}. Skipping.")
+            continue
 
-            translated = translate_image(image, 10, 20)
-            new_bbox_translated = translate_bbox(bbox, 10, 20, image)
-            save_augmented_image_and_labels(translated, new_bbox_translated, image_path, 'translated')
+        bbox = []
+        with open(label_path, 'r') as f:
+            for line in f:
+                class_id, x_center, y_center, width, height = map(float, line.split())
+                bbox.append([class_id, x_center, y_center, width, height])
 
-            scaled = scale_image(image, 1.5, 1.5)
-            new_bbox_scaled = scale_bbox(bbox, 1.5, 1.5)
-            save_augmented_image_and_labels(scaled, new_bbox_scaled, image_path, 'scaled')
+        rotated = rotate_image(image, 3)
+        new_bbox_rotated = rotate_bbox(bbox, image, 3)
+        save_augmented_image_and_labels(rotated, new_bbox_rotated, image_path, 'rotated')
 
-            # flipped = flip_image(image, 1)
-            # new_bbox_flipped = flip_bbox(bbox, image, 1)
-            # save_augmented_image_and_labels(flipped, new_bbox_flipped, image_path, 'flipped')
-            
-            # Sunlight Filter
-            sunlight = apply_sunlight_filter(image)
-            save_augmented_image_and_labels(sunlight, bbox, image_path, 'sunlight')
+        translated = translate_image(image, 10, 20)
+        new_bbox_translated = translate_bbox(bbox, 10, 20, image)
+        save_augmented_image_and_labels(translated, new_bbox_translated, image_path, 'translated')
 
-            # Lebih terang
-            bright = change_brightness(image, 1.5)
-            save_augmented_image_and_labels(bright, bbox, image_path, 'bright')
+        scaled = scale_image(image, 1.5, 1.5)
+        new_bbox_scaled = scale_bbox(bbox, 1.5, 1.5)
+        save_augmented_image_and_labels(scaled, new_bbox_scaled, image_path, 'scaled')
 
-            # Lebih gelap
-            dark = change_brightness(image, 0.5)
-            save_augmented_image_and_labels(dark, bbox, image_path, 'dark')
+        # sunlight = apply_sunlight_filter(image)
+        # save_augmented_image_and_labels(sunlight, bbox, image_path, 'sunlight')
 
-            nomer += 1
-            print(f"Processed {filename} images.")
+        bright = change_brightness(image, 1.0)
+        save_augmented_image_and_labels(bright, bbox, image_path, 'bright')
 
-# Example usage
-image_folder = 'C:/Users/Aldan/Desktop/IMPROTOYOTA/CAMERA 9 ZENIX.v1i.yolov8 - Copy/dataset/images'
+        dark = change_brightness(image, 0.5)
+        save_augmented_image_and_labels(dark, bbox, image_path, 'dark')
+
+        dark3 = change_brightness(image, 0.3)
+        save_augmented_image_and_labels(dark3, bbox, image_path, 'dark3')
+        
+        nomer += 1
+        progress = (nomer / total_files) * 100
+        print(f"Processed {filename} ({progress:.2f}%)")
+
+
+
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--folderimage", type=str, required=True, help="Path ke folder gambar")
+args = parser.parse_args()
+
+image_folder = args.folderimage
 label_folder = image_folder
+
 process_images_from_folder(image_folder, label_folder)
+
+# python DataAugmentation.py --folderimage ""
+

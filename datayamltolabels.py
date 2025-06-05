@@ -3,7 +3,7 @@ import os
 
 # Path ke file data.yml
 
-data_yml_path = "C:/Users/Aldan/Desktop/IMPROTOYOTA/CAMERA 9 ZENIX.v1i.yolov8/data.yaml"
+data_yml_path = "C:/Users/Aldan/Desktop/IMPROTOYOTA/CAMERA 5 ZENIX.v3i.yolov8/data.yaml"
 
 # Ambil direktori dari data.yml
 base_dir = os.path.dirname(os.path.abspath(data_yml_path))

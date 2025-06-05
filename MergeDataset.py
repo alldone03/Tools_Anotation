@@ -1,7 +1,7 @@
 import os
 import shutil
 
-base_path = "C:/Users/Aldan/Desktop/IMPROTOYOTA/CAMERA 6 FORTUNER.v2i.yolov8"
+base_path = "C:/Users/Aldan/Desktop/IMPROTOYOTA/CAMERA 5 ZENIX.v3i.yolov8"
 source_folders = ['train', 'valid', 'test']
 target_image = os.path.join(base_path, 'dataset', 'images')
 target_label = os.path.join(base_path, 'dataset', 'labels')

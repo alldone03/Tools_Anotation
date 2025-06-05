@@ -38,7 +38,7 @@ def process_images_from_folder(image_folder, label_folder):
     transform = A.Compose([
         A.RandomBrightnessContrast(p=0.5),
         A.HueSaturationValue(p=0.5),
-        A.RandomSunFlare(flare_roi=(0, 0, 1, 0.5), angle_lower=0.1, angle_upper=1.0, num_flare_circles_lower=6, p=0.4),
+        # A.RandomSunFlare(flare_roi=(0, 0, 1, 0.5), angle_lower=0.1, angle_upper=1.0, num_flare_circles_lower=6, p=0.4),
         A.HorizontalFlip(p=0.5),
     ], bbox_params=A.BboxParams(format='yolo', label_fields=['class_labels']))
 
@@ -77,6 +77,6 @@ def process_images_from_folder(image_folder, label_folder):
                 print(f"Error augmentasi {filename}: {e}")
 
 # Ganti path ini sesuai lokasi dataset kamu
-image_folder = 'C:/Users/Aldan/Desktop/sawitmini/dataset/datasedikit'
+image_folder = "C:/Users/Aldan/Desktop/IMPROTOYOTA/CAMERA 6 ZENIX.v1i.yolov8/dataset/images"
 label_folder = image_folder
 process_images_from_folder(image_folder, label_folder)

@@ -2,10 +2,29 @@ import os
 import shutil
 from sklearn.model_selection import train_test_split
 
+# Menggunakan argparse untuk mengambil argumen dari command line
+# python pisahdata.py --img_label_dir "" --save_to_folder ""
 
-img_dir = 'C:/Users/Aldan/Desktop/sawitmini/dataset/canpuranbrondol'
-label_dir = img_dir
-save_to_folder = "C:/Users/Aldan/Desktop/sawitmini/dataset/datasetsawitmini"
+import argparse
+import os
+
+def parse_args():
+    parser = argparse.ArgumentParser(description="Script untuk mengatur path dataset")
+    parser.add_argument('--img_label_dir', type=str, required=True,
+                        help='Path ke folder gambar dan label (YOLO format)')
+    parser.add_argument('--save_to_folder', type=str, default='./datasetTrain',
+                        help='Folder tujuan untuk menyimpan hasil')
+    return parser.parse_args()
+
+if __name__ == '__main__':
+    args = parse_args()
+
+    img_dir = args.img_label_dir
+    label_dir = img_dir  # karena satu folder
+    save_to_folder = args.save_to_folder
+
+    print("Path gambar dan label:", img_dir)
+    print("Folder tujuan:", save_to_folder)
 
 images = [f for f in os.listdir(img_dir) if f.endswith('.jpg')]
 labels = [f for f in os.listdir(label_dir) if f.endswith('.txt')]
@@ -38,11 +57,18 @@ train_imgs, val_imgs, train_lbls, val_lbls = train_test_split(train_val_imgs, tr
 
 
 def move_files(file_list, src_dir, dest_dir):
-    for file in file_list:
+    total = len(file_list)
+    for i, file in enumerate(file_list, 1):
         shutil.move(os.path.join(src_dir, file), os.path.join(dest_dir, file))
+        percent = (i / total) * 100
+        print(f"[MOVE] Progress: {percent:.2f}% ({i}/{total})", end='\r')
+
 def copy_files(file_list, src_dir, dest_dir):
-    for file in file_list:
+    total = len(file_list)
+    for i, file in enumerate(file_list, 1):
         shutil.copy(os.path.join(src_dir, file), os.path.join(dest_dir, file))
+        percent = (i / total) * 100
+        print(f"[COPY] Progress: {percent:.2f}% ({i}/{total})", end='\r')
 
 
 
