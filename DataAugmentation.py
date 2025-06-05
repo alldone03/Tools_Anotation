@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 import os
+import time
 
 def rotate_image(image, angle):
     (h, w) = image.shape[:2]
@@ -156,12 +157,15 @@ def change_brightness(image, factor):
 
 def process_images_from_folder(image_folder, label_folder):
     nomer = 0
+    start_time = time.time()  # Mulai timer
 
     # Hitung jumlah file gambar yang valid
     image_files = [f for f in os.listdir(image_folder) if f.endswith((".jpg", ".png"))]
     total_files = len(image_files)
 
     for filename in image_files:
+        file_start = time.time()
+
         image_path = os.path.join(image_folder, filename)
         label_path = os.path.join(label_folder, os.path.splitext(filename)[0] + ".txt")
 
@@ -192,9 +196,6 @@ def process_images_from_folder(image_folder, label_folder):
         new_bbox_scaled = scale_bbox(bbox, 1.5, 1.5)
         save_augmented_image_and_labels(scaled, new_bbox_scaled, image_path, 'scaled')
 
-        # sunlight = apply_sunlight_filter(image)
-        # save_augmented_image_and_labels(sunlight, bbox, image_path, 'sunlight')
-
         bright = change_brightness(image, 1.0)
         save_augmented_image_and_labels(bright, bbox, image_path, 'bright')
 
@@ -203,10 +204,18 @@ def process_images_from_folder(image_folder, label_folder):
 
         dark3 = change_brightness(image, 0.3)
         save_augmented_image_and_labels(dark3, bbox, image_path, 'dark3')
-        
+
         nomer += 1
         progress = (nomer / total_files) * 100
-        print(f"Processed {filename} ({progress:.2f}%)")
+
+        elapsed = time.time() - start_time
+        avg_time = elapsed / nomer
+        remaining = avg_time * (total_files - nomer)
+
+        print(f"Processed {filename} ({progress:.2f}%) | Estimasi sisa: {remaining:.1f} detik", end='\r')
+
+    total_time = time.time() - start_time
+    print(f"\nSelesai! Total waktu: {total_time:.2f} detik")
 
 
 

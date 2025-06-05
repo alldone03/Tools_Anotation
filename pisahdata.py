@@ -2,6 +2,8 @@ import os
 import shutil
 from sklearn.model_selection import train_test_split
 
+import time
+
 # Menggunakan argparse untuk mengambil argumen dari command line
 # python pisahdata.py --img_label_dir "" --save_to_folder ""
 
@@ -58,17 +60,35 @@ train_imgs, val_imgs, train_lbls, val_lbls = train_test_split(train_val_imgs, tr
 
 def move_files(file_list, src_dir, dest_dir):
     total = len(file_list)
+    start_time = time.time()
+
     for i, file in enumerate(file_list, 1):
         shutil.move(os.path.join(src_dir, file), os.path.join(dest_dir, file))
+
+        elapsed = time.time() - start_time
+        avg_time = elapsed / i
+        remaining_time = avg_time * (total - i)
+
         percent = (i / total) * 100
-        print(f"[MOVE] Progress: {percent:.2f}% ({i}/{total})", end='\r')
+        print(f"[MOVE] {percent:.2f}% ({i}/{total}) | Estimasi sisa: {remaining_time:.1f} detik", end='\r')
+
+    print("\nSelesai!")
 
 def copy_files(file_list, src_dir, dest_dir):
     total = len(file_list)
+    start_time = time.time()
+
     for i, file in enumerate(file_list, 1):
         shutil.copy(os.path.join(src_dir, file), os.path.join(dest_dir, file))
+
+        elapsed = time.time() - start_time
+        avg_time = elapsed / i
+        remaining_time = avg_time * (total - i)
+
         percent = (i / total) * 100
-        print(f"[COPY] Progress: {percent:.2f}% ({i}/{total})", end='\r')
+        print(f"[COPY] {percent:.2f}% ({i}/{total}) | Estimasi sisa: {remaining_time:.1f} detik", end='\r')
+
+    print("\nSelesai!")
 
 
 
