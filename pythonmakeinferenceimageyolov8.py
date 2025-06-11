@@ -19,15 +19,17 @@ args = parser.parse_args()
 # Load model
 model = YOLO(args.model_path)  # Set confidence threshold
 
+
+
+# Buat folder output kalau belum ada
+if not os.path.exists(args.output_folder):
+    os.makedirs(args.output_folder)
+    
 label_file_path = os.path.join(args.output_folder, "labels.txt")
 if not os.path.exists(label_file_path):
     with open(label_file_path, "w") as f:
         for class_id, class_name in model.names.items():
             f.write(f"{class_name}\n")
-
-# Buat folder output kalau belum ada
-if not os.path.exists(args.output_folder):
-    os.makedirs(args.output_folder)
 
 image_files = [f for f in os.listdir(args.image_folder) if f.endswith(('.png', '.jpg', '.jpeg'))]
 
