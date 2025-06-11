@@ -47,7 +47,7 @@ for image_file in image_files:
 
     if frame is not None:
         myimage = frame.copy()
-        results = model(frame,conf=0.55)
+        results = model(frame,conf=0.25, iou=0.45, agnostic_nms=True, max_det=1000)
 
         for result in results:
             for box in result.boxes:
