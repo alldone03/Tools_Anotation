@@ -2,6 +2,8 @@ import cv2
 import numpy as np
 import os
 import time
+import torchvision.transforms as T
+from PIL import Image
 
 def rotate_image(image, angle):
     (h, w) = image.shape[:2]
@@ -104,6 +106,39 @@ def draw_bboxes(image, bbox):
         cv2.rectangle(image, (x_min, y_min), (x_max, y_max), (0, 255, 0), 2)
     return image
 
+# ColorJitter
+def color_jitter(image):
+    image_pil = Image.fromarray(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+    transform = T.ColorJitter(brightness=0.4, contrast=0.4, saturation=0.4, hue=0.1)
+    jittered = transform(image_pil)
+    return cv2.cvtColor(np.array(jittered), cv2.COLOR_RGB2BGR)
+
+# RandomErasing
+def random_erasing(image):
+    image_pil = Image.fromarray(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+    transform = T.Compose([
+        T.ToTensor(),
+        T.RandomErasing(p=1.0, scale=(0.02, 0.2), ratio=(0.3, 3.3), value='random'),
+        T.ToPILImage()
+    ])
+    erased = transform(image_pil)
+    return cv2.cvtColor(np.array(erased), cv2.COLOR_RGB2BGR)
+
+# MotionBlur
+def motion_blur(image, kernel_size=15):
+    # Membuat kernel blur horizontal
+    kernel = np.zeros((kernel_size, kernel_size))
+    kernel[int((kernel_size - 1)/2), :] = np.ones(kernel_size)
+    kernel = kernel / kernel_size
+    blurred = cv2.filter2D(image, -1, kernel)
+    return blurred
+
+# GaussianNoise
+def gaussian_noise(image, mean=0, std=15):
+    noise = np.random.normal(mean, std, image.shape).astype(np.uint8)
+    noisy = cv2.add(image, noise)
+    return noisy
+
 def save_augmented_image_and_labels(image, bbox, image_path, prefix):
     directory, filename = os.path.split(image_path)
     name, ext = os.path.splitext(filename)
@@ -205,6 +240,18 @@ def process_images_from_folder(image_folder, label_folder):
         dark3 = change_brightness(image, 0.3)
         save_augmented_image_and_labels(dark3, bbox, image_path, 'dark3')
 
+        aug1 = color_jitter(image)
+        save_augmented_image_and_labels(aug1, bbox, image_path, "colorjitter")
+
+        aug2 = random_erasing(image)
+        save_augmented_image_and_labels(aug2, bbox, image_path, "randomerasing")
+
+        aug3 = motion_blur(image)
+        save_augmented_image_and_labels(aug3, bbox, image_path, "motionblur")
+
+        aug4 = gaussian_noise(image)
+        save_augmented_image_and_labels(aug4, bbox, image_path, "gaussiannoise")
+        
         nomer += 1
         progress = (nomer / total_files) * 100
 
@@ -230,5 +277,5 @@ label_folder = image_folder
 
 process_images_from_folder(image_folder, label_folder)
 
-# python DataAugmentation.py --folderimage ""
+# python DataAugmentation.py --folderimage "C:\Users\Aldan\Desktop\IMPROTOYOTA\CAMERA 5 FORTUNER.v2i.yolov8\mydata"
 
