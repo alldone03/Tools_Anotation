@@ -219,9 +219,9 @@ def process_images_from_folder(image_folder, label_folder):
                 class_id, x_center, y_center, width, height = map(float, line.split())
                 bbox.append([class_id, x_center, y_center, width, height])
 
-        rotated = rotate_image(image, 3)
-        new_bbox_rotated = rotate_bbox(bbox, image, 3)
-        save_augmented_image_and_labels(rotated, new_bbox_rotated, image_path, 'rotated')
+        # rotated = rotate_image(image, 3)
+        # new_bbox_rotated = rotate_bbox(bbox, image, 3)
+        # save_augmented_image_and_labels(rotated, new_bbox_rotated, image_path, 'rotated')
 
         translated = translate_image(image, 10, 20)
         new_bbox_translated = translate_bbox(bbox, 10, 20, image)
@@ -243,8 +243,8 @@ def process_images_from_folder(image_folder, label_folder):
         aug1 = color_jitter(image)
         save_augmented_image_and_labels(aug1, bbox, image_path, "colorjitter")
 
-        aug2 = random_erasing(image)
-        save_augmented_image_and_labels(aug2, bbox, image_path, "randomerasing")
+        # aug2 = random_erasing(image)
+        # save_augmented_image_and_labels(aug2, bbox, image_path, "randomerasing")
 
         aug3 = motion_blur(image)
         save_augmented_image_and_labels(aug3, bbox, image_path, "motionblur")

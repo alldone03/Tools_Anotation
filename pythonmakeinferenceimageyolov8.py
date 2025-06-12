@@ -6,7 +6,7 @@ import argparse
 from ultralytics import YOLO
 
 
-# python pythonmakeinferenceimageyolov8.py --model_path "C:/Users/Aldan/Desktop/CAM-6-FORTUNER_NEW_2025-06-09_13-48-22/weights/best.pt" --image_folder "C:/Users/Aldan/Desktop/IMPROTOYOTA/Camera 2/For/AL" --output_folder "C:/Users/Aldan/Desktop/IMPROTOYOTA/Camera 2/For/[anotated]AL"
+# python pythonmakeinferenceimageyolov8.py --model_path "C:/Users/Aldan/Desktop/train2/train2/weights/best.pt" --image_folder "C:/Users/Aldan/Desktop/IMPROTOYOTA/Camera 1/Inn/AR" --output_folder "C:/Users/Aldan/Desktop/IMPROTOYOTA/Camera 1/Inn/AR_anotated"
 
 
 # Argument parser
