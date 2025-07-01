@@ -85,7 +85,7 @@ def process_folder(label_folder, image_folder, scale):
 
 
 # Contoh pemakaian
-folder_label = r"C:\Users\Aldan\Desktop\ImproTYT\INNOVA\dataset_cropped"  # ganti dengan folder kamu
+folder_label = r"C:\Users\Aldan\Desktop\ImproTYT\90%good\destination"  # ganti dengan folder kamu
 
 scale_factor = 1.5       # perbesar 1.5 kali
 process_folder(folder_label,folder_label, scale_factor)

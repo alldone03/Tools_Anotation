@@ -39,8 +39,7 @@ if not os.path.exists(csv_filename):
     with open(csv_filename, "w", newline='', encoding="utf-8") as f:
         writer = csv.writer(f)
         writer.writerow([
-            "decision","Path Gambar", "Nama File", "Jumlah Objek", 
-            "Kelas Unik", "Kelas Dominan", "Label YOLO Format"
+            "decision",'Model', 'Path Gambar', 'Nama File', 'Jumlah Objek', 'Kelas Unik', 'Kelas Dominan', 'Label YOLO Format'
         ])
 
 # ========== FUNGSI GUI ==========
@@ -132,7 +131,7 @@ def save_decision(decision):
         writer = csv.writer(f)
         writer.writerow([
             str(decision),
-            folder_name,
+            "Model",
             img_path,
             nama_file,
             jumlah_objek,
