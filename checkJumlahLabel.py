@@ -1,7 +1,8 @@
 import os
 
 # Ganti dengan path ke folder label kamu
-FOLDER_LABEL = r"C:/Users/Aldan/Desktop/ImproTYT/ZENIX/CAMERA 5 ZENIX.v4i.yolov8/dataset/images"
+FOLDER_LABEL = r"C:\Users\Aldan\Desktop\ImproTYT\90%good\Innova_model_after"
+
 
 # Ambil semua file .txt di folder
 for file in sorted(os.listdir(FOLDER_LABEL)):

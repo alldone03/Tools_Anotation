@@ -2,12 +2,13 @@ import cv2
 import os
 
 # --- Konfigurasi ---
-input_folder = r"C:\Users\Aldan\Desktop\ImproTYT\FORTUNER\CAMERA 5 FORTUNER.v3i.yolov8\dataset_filtered"
-output_folder = r"C:\Users\Aldan\Desktop\ImproTYT\FORTUNER\CAMERA 5 FORTUNER.v3i.yolov8\dataset_filtered_cropped"
+input_folder = r"C:\Users\Aldan\Desktop\IMPROTOYOTA\Camera 1\Inn\AR"
+output_folder = r"C:\Users\Aldan\Desktop\IMPROTOYOTA\Camera 1\Inn\AR_cropped"
 scale_x, scale_y = 0, 0
 # scale_x, scale_y = 1.5, 1.5
 # crop_rel = (0.27, 0.20, 0.43, 0.47)  # x_rel, y_rel, w_rel, h_rel
-crop_rel = (0.21, 0.20, 0.52, 0.52)  # x_rel, y_rel, w_rel, h_rel crop_relative(img, 0.21, 0.20, 0.52, 0.52)
+# crop_rel = (0.21, 0.20, 0.52, 0.52)  # x_rel, y_rel, w_rel, h_rel crop_relative(img, 0.21, 0.20, 0.52, 0.52)
+crop_rel = (0.21, 0.20, 0.6, 0.6)  # x_rel, y_rel, w_rel, h_rel crop_relative(img, 0.21, 0.20, 0.52, 0.52)
 
 # crop_rel = (0.30, 0.27, 0.41, 0.41)  # x_rel, y_rel, w_rel, h_rel
 

@@ -4,10 +4,11 @@ import numpy as np
 import os
 import argparse
 from ultralytics import YOLO
+from ultralytics.utils.plotting import Annotator
 
 
-# python pythonmakeinferenceimageyolov8.py --model_path "C:/Users/Aldan/Desktop/train2/train2/weights/best.pt" --image_folder "C:/Users/Aldan/Desktop/IMPROTOYOTA/Camera 1/Inn/AR" --output_folder "C:/Users/Aldan/Desktop/IMPROTOYOTA/Camera 1/Inn/AR_anotated"
-
+# python pythonmakeinferenceimageyolov8.py --model_path "C:\Users\Aldan\Desktop\ImproTYT\ModelCam5\ModelCam5\InnovaCam5OK\train\weights\best.pt" --image_folder "C:\Users\Aldan\Desktop\ImproTYT\90%good\Innova" --output_folder "C:\Users\Aldan\Desktop\ImproTYT\90%good\Innova_model_after"
+# python pythonmakeinferenceimageyolov8.py --model_path "C:/Users/Aldan/Desktop/ImproTYT/INNOVA/GoodDetection/train3/weights/best.pt" --image_folder "C:/Users/Aldan/Desktop/ImproTYT/INNOVA/dataset" --output_folder "C:/Users/Aldan/Desktop/ImproTYT/INNOVA/newDataset_anotatedd"
 
 # Argument parser
 parser = argparse.ArgumentParser(description='YOLO Image Annotator')
@@ -18,12 +19,6 @@ args = parser.parse_args()
 
 # Load model
 model = YOLO(args.model_path)  # Set confidence threshold
-
-# label_file_path = os.path.join(args.output_folder, "labels.txt")
-# if not os.path.exists(label_file_path):
-#     with open(label_file_path, "w") as f:
-#         for class_id, class_name in model.names.items():
-#             f.write(f"{class_id}: {class_name}\n")
 
 # Buat folder output kalau belum ada
 if not os.path.exists(args.output_folder):
@@ -41,13 +36,28 @@ numberImage = 1
 total_detections = 0
 confidences = []
 
+x_line = 100
+
+
+
 for image_file in image_files:
     image_path = os.path.join(args.image_folder, image_file)
     frame = cv2.imread(image_path)
 
     if frame is not None:
         myimage = frame.copy()
-        results = model(frame,conf=0.25, iou=0.45, agnostic_nms=True, max_det=1000)
+        results = model(frame,conf=0.5, iou=0.45, agnostic_nms=True, max_det=1000)
+        annotator = Annotator(frame)
+        for r in results:
+            for box in r.boxes:
+                b = box.xyxy[0]
+                if b[1] > x_line:
+                    c = box.cls
+                    annotator.box_label(b, f"",(0, 255, 0))
+                    
+                    
+        
+        cv2.line(frame, (0, x_line), (frame.shape[1] - 1, x_line), (255, 0, 0), 2)
 
         for result in results:
             for box in result.boxes:
@@ -64,21 +74,22 @@ for image_file in image_files:
                 confidences.append(conf)
                 print(f" - Class: {labelidx}, Conf: {conf:.2f}, X: {x:.1f}, Y: {y:.1f}, W: {w:.1f}, H: {h:.1f}")
 
-                cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
-                cv2.putText(frame, f'{labelidx} {conf:.2f}', (x1, y1 - 10),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.9, (36, 255, 12), 2)
-
+                # cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 1)
+                # cv2.putText(frame, f'{labelidx} {conf:.2f}', (x1, y1 - 10),
+                #             cv2.FONT_HERSHEY_SIMPLEX, 0.9, (36, 255, 12), 2)
+        
         if total_detections > 0:
+            total_detection = 0
             avg_conf = sum(confidences) / total_detections
-            print(f"\nTotal Deteksi: {total_detections}")
+            print(f"\nTotal Deteksi: {len(result.boxes)} class")
             print(f"Rata-rata Confidence: {avg_conf:.2f}")
         else:
             print("\nTidak ada objek terdeteksi.")
             
 
         try:
-            cv_img = np.squeeze(frame)
-            cv2.imshow('Frame', cv_img)
+            
+            cv2.imshow('Frame', frame)
             
             if cv2.waitKey(25) & 0xFF == ord('q'):
                 break
@@ -107,8 +118,6 @@ for image_file in image_files:
         print(numberImage)
         numberImage += 1
         
-        
         if numberImage >= 1000:
             break
 
-# cv2.destroyAllWindows()

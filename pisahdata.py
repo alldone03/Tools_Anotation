@@ -5,7 +5,7 @@ from sklearn.model_selection import train_test_split
 import time
 
 # Menggunakan argparse untuk mengambil argumen dari command line
-# python pisahdata.py --img_label_dir "" --save_to_folder ""
+# python pisahdata.py --img_label_dir "C:\Users\Aldan\Desktop\ImproTYT\INNOVA\dataset_cropped_rescaled_1.5" --save_to_folder "C:\Users\Aldan\Desktop\ImproTYT\INNOVA\dataset_cropped_rescaled_1.5_train"
 
 import argparse
 import os
@@ -118,7 +118,7 @@ with open(img_dir+'/labels.txt', 'r') as file:
 print(class_names)
 
 data = {
-    'path': './'+save_to_folder,
+    
     'train': 'train/images',
     'val': 'val/images',
     'test': 'test/images',
