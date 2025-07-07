@@ -7,7 +7,7 @@ from ultralytics import YOLO
 from ultralytics.utils.plotting import Annotator
 
 
-# python pythonmakeinferenceimageyolov8.py --model_path "C:\Users\Aldan\Desktop\ImproTYT\ModelCam5\ModelCam5\InnovaCam5OK\train\weights\best.pt" --image_folder "C:\Users\Aldan\Desktop\ImproTYT\90%good\Innova" --output_folder "C:\Users\Aldan\Desktop\ImproTYT\90%good\Innova_model_after"
+# python pythonmakeinferenceimageyolov8.py --model_path "E:\InnovaCam5OK\train4\weights\best.pt" --image_folder "C:\Users\Aldan\Desktop\IMPROTOYOTA\Camera 1\Inn\MR_cropped" --output_folder "C:\Users\Aldan\Desktop\IMPROTOYOTA\Camera 1\Inn\MR_cropped_annotated"
 # python pythonmakeinferenceimageyolov8.py --model_path "C:/Users/Aldan/Desktop/ImproTYT/INNOVA/GoodDetection/train3/weights/best.pt" --image_folder "C:/Users/Aldan/Desktop/ImproTYT/INNOVA/dataset" --output_folder "C:/Users/Aldan/Desktop/ImproTYT/INNOVA/newDataset_anotatedd"
 
 # Argument parser

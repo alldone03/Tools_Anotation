@@ -7,7 +7,7 @@ import time
 start_time = time.time()
 
 # Path ke folder dataset dan labels.txt
-folder_path = r"C:\Users\Aldan\Desktop\ImproTYT\90%good\Innova_model_bfr"  # ganti sesuai lokasi folder kamu
+folder_path = r"C:\Users\Aldan\Desktop\ImproTYT\ZENIX\CAMERA 5 ZENIX.v4i.yolov8\dataset_filtered_cropped_rescaled_1.5"  # ganti sesuai lokasi folder kamu
 
 labels_txt_path = os.path.join(folder_path, 'labels.txt')
 

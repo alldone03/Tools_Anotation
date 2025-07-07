@@ -3,7 +3,7 @@ import os
 
 # --- Konfigurasi ---
 input_folder = r"C:\Users\Aldan\Desktop\IMPROTOYOTA\Camera 1\Inn\AR"
-output_folder = r"C:\Users\Aldan\Desktop\IMPROTOYOTA\Camera 1\Inn\AR_cropped"
+output_folder = r"C:\Users\Aldan\Desktop\IMPROTOYOTA\Camera 1\Inn\AR_cropped_cropped2"
 scale_x, scale_y = 0, 0
 # scale_x, scale_y = 1.5, 1.5
 # crop_rel = (0.27, 0.20, 0.43, 0.47)  # x_rel, y_rel, w_rel, h_rel

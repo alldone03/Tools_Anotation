@@ -4,9 +4,9 @@ import shutil
 from PIL import Image
 
 
-folder_asal = r"C:\Users\Aldan\Desktop\ImproTYT\FORTUNER\CAMERA 5 FORTUNER.v3i.yolov8\dataset_filtered_cropped"
-folder_output = r"C:\Users\Aldan\Desktop\ImproTYT\FORTUNER\CAMERA 5 FORTUNER.v3i.yolov8\dataset_filtered_cropped_dataset_kelas_tertentu"
-area = (389, 197, 504, 151)
+folder_asal = r"C:\Users\Aldan\Desktop\ImproTYT\ZENIX\CAMERA 5 ZENIX.v4i.yolov8\dataset_filtered_cropped_rescaled_1.5"
+folder_output = r"C:\Users\Aldan\Desktop\ImproTYT\ZENIX\CAMERA 5 ZENIX.v4i.yolov8\dataset_filtered_cropped_rescaled_1.5_dataset_kelas_tertentu"
+area = (391,194,476,83)
 
 def bbox_di_area(x_center, y_center, w, h, x_min, x_max, y_min, y_max, img_w, img_h):
     xmin_bbox = (x_center - w / 2) * img_w
@@ -17,7 +17,7 @@ def bbox_di_area(x_center, y_center, w, h, x_min, x_max, y_min, y_max, img_w, im
     # Cek apakah overlap dengan area
     return not (xmax_bbox < x_min or xmin_bbox > x_max or ymax_bbox < y_min or ymin_bbox > y_max)
 
-def copy_kalau_15_16_tidak_di_area(folder_asal, folder_tujuan, area_pixel, kelas_target=[15, 16], ekstensi_gambar=".jpg"):
+def copy_kalau_15_16_tidak_di_area(folder_asal, folder_tujuan, area_pixel, kelas_target=[0, 2], ekstensi_gambar=".jpg"):
     os.makedirs(folder_tujuan, exist_ok=True)
     x_min = min(area_pixel[0], area_pixel[2])
     x_max = max(area_pixel[0], area_pixel[2])
