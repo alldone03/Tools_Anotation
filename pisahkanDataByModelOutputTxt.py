@@ -5,7 +5,7 @@ from collections import Counter
 
 # Daftar model yang akan digunakan (ganti path sesuai milikmu)
 model_paths = {
-    "Innvova": r"C:\Users\Aldan\Desktop\ImproTYT\INNOVA\GoodDetection\train3\weights\best.pt",
+    "Innova": r"C:\Users\Aldan\Desktop\ImproTYT\INNOVA\InnovaCam5OK\train4\weights\best.pt",
     # "Fortuner": "runs/train/exp/weights/best.pt",
     # "Zenix": "runs/train/exp2/weights/best.pt"
 }
@@ -14,8 +14,8 @@ model_paths = {
 models = {name: YOLO(path, verbose=False) for name, path in model_paths.items()}
 
 # Folder gambar
-folder_input = r"E:\datacamera"
-csv_output = r"E:\datacamera\Detection.csv"
+folder_input = r"C:\Users\Aldan\Desktop\IMPROTOYOTA\Camera 1\Inn\AR"
+csv_output = r"C:\Users\Aldan\Desktop\IMPROTOYOTA\Camera 1\Inn\AR\Detection.csv"
 
 # Siapkan CSV
 header = ['Model', 'Path Gambar', 'Nama File', 'Jumlah Objek', 'Kelas Unik', 'Kelas Dominan', 'Label YOLO Format']
