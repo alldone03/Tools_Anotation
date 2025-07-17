@@ -13,8 +13,8 @@ selected_manual_index = -1  # untuk menandai kotak manual yang dipilih
 
 # ======== KONFIGURASI =========
 # image_folder = r"C:\Users\Aldan\Desktop\ImproTYT\AfterDetect\Innova"  # GANTI path ke folder kamu
-image_folder = r"C:\Users\Aldan\Desktop\ImproTYT\INNOVA\DatasetOK02072025"  # GANTI path ke folder kamu
-csv_filename = "DatasetOK02072025_review.csv"
+image_folder = r"D:\TMMINImpro\Camera9New\Fortuner"  # GANTI path ke folder kamu
+csv_filename = image_folder+"review.csv"
 
 # ======== BACA CLASS NAME DARI labels.txt =========
 labels_path = os.path.join(image_folder, "labels.txt")
@@ -181,6 +181,7 @@ def save_decision(decision):
             kelas_dominan,
             str(label_lines)
         ])
+        print(f"Disimpan ke CSV: {csv_filename}")
 
     next_image()
 

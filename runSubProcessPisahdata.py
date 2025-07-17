@@ -82,19 +82,6 @@ commands = [
 ]
 
 
-
-
-
-# "E:\DatasetUBC\CAMERA 6 FORTUNER.v2i.yolov8"
-# "E:\DatasetUBC\CAMERA 6 INNOVA.v1i.yolov8"
-# "E:\DatasetUBC\CAMERA 6 ZENIX.v1i.yolov8"
-# "E:\DatasetUBC\CAMERA 8 FORTUNER.v1i.yolov8"
-# "E:\DatasetUBC\CAMERA 8 INNOVA.v1i.yolov8"
-# "E:\DatasetUBC\CAMERA 8 ZENIX.v1i.yolov8"
-# "E:\DatasetUBC\CAMERA 9 FORTUNER.v1i.yolov8"
-# "E:\DatasetUBC\CAMERA 9 INNOVA.v1i.yolov8"
-# "E:\DatasetUBC\CAMERA 9 ZENIX.v1i.yolov8"
-
 processes = []
 
 for cmd in commands:

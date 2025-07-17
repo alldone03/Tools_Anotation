@@ -1,29 +1,10 @@
 import os
 import shutil
 
-# def resize_bbox(yolo_line, scale):
-#     parts = yolo_line.strip().split()
-#     if len(parts) != 5:
-#         return None  # skip line jika tidak sesuai
-#     cls, x, y, w, h = parts
-#     x, y, w, h = float(x), float(y), float(w), float(h)
-
-#     area = w * h
-#     if area < 0.000941:
-#         scale = 2.6
-#     else:
-#         scale = scale
-#     # Perbesar ukuran width dan height
-#     new_w = min(w * scale, 1.0)
-#     new_h = min(h * scale, 1.0)
-
-#     # Pastikan tetap dalam batas gambar
-#     new_x = max(min(x, 1.0), 0.0)
-#     new_y = max(min(y, 1.0), 0.0)
-#     print(f"[Class {cls}] Luas bbox setelah diperbesar: {area:.6f} (normalized)")
 
 
-#     return f"{cls} {new_x:.6f} {new_y:.6f} {new_w:.6f} {new_h:.6f}\n"
+
+
 def resize_bbox(yolo_line, scale):
     parts = yolo_line.strip().split()
     if len(parts) != 5:
