@@ -8,22 +8,20 @@ model_paths = {
     # "Fortuner": r"D:\TMMINImpro\ImproTYT\ModelOK\ModelCam9\Fortuner\weights\best.pt",
     # "Innova": r"D:\TMMINImpro\ImproTYT\ModelOK\ModelCam9\Innova\weights\best.pt",
     # "Zenix": r"D:\TMMINImpro\ImproTYT\ModelOK\ModelCam9\Zenix\weights\best.pt"
-    "Fortuner": r"D:\TMMINImpro\ImproTYT\ModelOK\ModelCam6\Fortuner\weights\best.pt",
-    "Innova": r"D:\TMMINImpro\ImproTYT\ModelOK\ModelCam6\Innova\weights\best.pt",
-    "Zenix": r"D:\TMMINImpro\ImproTYT\ModelOK\ModelCam6\Zenix\weights\best.pt"
-    # "Fortuner": r"D:\TMMINImpro\ImproTYT\ModelCam8\Fortuner\weights\best.pt",
-    # "Innova": r"D:\TMMINImpro\ImproTYT\ModelCam8\Innova\weights\best.pt",
-    # "Zenix": r"D:\TMMINImpro\ImproTYT\ModelCam8\Zenix\weights\best.pt"
+    # "Fortuner": r"D:\TMMINImpro\ImproTYT\ModelOK\ModelCam6\Fortuner\weights\best.pt",
+    # "Innova": r"D:\TMMINImpro\ImproTYT\ModelOK\ModelCam6\Innova\weights\best.pt",
+    # "Zenix": r"D:\TMMINImpro\ImproTYT\ModelOK\ModelCam6\Zenix\weights\best.pt"
+    "Fortuner": r"D:\TMMINImpro\ImproTYT\ModelCam8\Fortuner\weights\best.pt",
+    "Innova": r"D:\TMMINImpro\ImproTYT\ModelCam8\Innova\weights\best.pt",
+    "Zenix": r"D:\TMMINImpro\ImproTYT\ModelCam8\Zenix\weights\best.pt"
 }
 
 # Load semua model
 models = {name: YOLO(path, verbose=True) for name, path in model_paths.items()}
 
-
-
 # Folder gambar
-folder_input = r"D:\TMMINImpro\TMMINDataset"
-csv_output = folder_input+r"\Detection_camera_6.csv"
+folder_input = r"D:\TMMINImpro\newdata16"
+csv_output = folder_input+r"\Detection_camera_8.csv"
 
 # Simpan label dari tiap model ke file
 for name, model in models.items():
@@ -45,7 +43,7 @@ with open(csv_output, mode='w', newline='') as file_csv:
     # Telusuri semua gambar
     for root, dirs, files in os.walk(folder_input):
         for file in files:
-            if file.lower().endswith(('camera_2.jpg', '.jpeg', '.png')):
+            if file.lower().endswith(('camera_4.jpg', '.jpeg', '.png')):
                 path_gambar = os.path.join(root, file)
 
                 for model_name, model in models.items():
